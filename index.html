@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Chief of Staff — Bishop J.A. Whitfield</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#0A1A2B;
+    --navy-900:#0E2238;
+    --navy-800:#143049;
+    --navy-700:#1B3E5E;
+    --line:rgba(92,170,224,.22);
+    --line-soft:rgba(255,255,255,.07);
+    --gold:#5CAAE0;
+    --gold-soft:#A6D4F5;
+    --cream:#F2F8FD;
+    --ink:#EAF3FA;
+    --ink-2:#B3C8DB;
+    --ink-3:#7E9AB2;
+    --good:#5FBF8A;
+    --warn:#E4B45B;
+    --serious:#E58A6B;
+    --info:#7FA8D9;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:linear-gradient(180deg,var(--navy-950) 0%,var(--navy-900) 100%);
+    color:var(--ink);
+    min-height:100vh;
+    padding:0 0 48px;
+  }
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+
+  /* ---------- header ---------- */
+  header{
+    border-bottom:1px solid var(--line);
+    background:rgba(11,21,38,.6);
+    padding:22px 0 20px;
+  }
+  .hdr{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:14px}
+  .crest{
+    width:46px;height:46px;border:1.5px solid var(--gold);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px;color:var(--gold);
+    letter-spacing:.5px;
+  }
+  .brand h1{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;letter-spacing:.3px}
+  .brand .sub{font-size:11.5px;color:var(--ink-3);letter-spacing:.18em;text-transform:uppercase;margin-top:2px}
+  .hdr-right{text-align:right}
+  .hdr-right .date{font-size:13.5px;color:var(--ink-2);font-weight:500}
+  .hdr-right .motto{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--gold-soft);margin-top:3px;
+  }
+
+  /* ---------- greeting + scripture ---------- */
+  .greeting{padding:30px 0 6px}
+  .greeting h2{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600}
+  .greeting p{color:var(--ink-2);font-size:14.5px;margin-top:6px;max-width:760px;line-height:1.55}
+  .scripture{
+    margin-top:20px;
+    border:1px solid var(--line);
+    background:linear-gradient(135deg,rgba(92,170,224,.10),rgba(92,170,224,.02) 55%);
+    border-radius:14px;
+    padding:22px 26px;
+    display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;
+  }
+  .scripture .verse{flex:1 1 420px}
+  .scripture .verse .txt{
+    font-family:'Cormorant Garamond',serif;font-size:21px;line-height:1.5;color:var(--cream);
+  }
+  .scripture .verse .ref{margin-top:8px;color:var(--gold);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+  .scripture .pray{
+    flex:1 1 280px;border-left:1px solid var(--line);padding-left:22px;min-width:260px;
+  }
+  .scripture .pray h4{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+  .scripture .pray p{font-size:13.5px;color:var(--ink-2);line-height:1.6}
+
+  /* ---------- stat row ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0 8px}
+  .stat{
+    background:var(--navy-800);border:1px solid var(--line-soft);border-radius:12px;padding:16px 18px;
+  }
+  .stat .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+  .stat .value{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--cream);margin-top:6px;line-height:1}
+  .stat .value span{font-size:17px;color:var(--ink-2);font-weight:500}
+  .stat .note{font-size:12px;color:var(--ink-3);margin-top:6px}
+  .stat .note b{color:var(--gold-soft);font-weight:600}
+
+  /* ---------- grid ---------- */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  .card{
+    background:var(--navy-800);border:1px solid var(--line-soft);border-radius:14px;padding:20px 22px;
+  }
+  .card.full{grid-column:1 / -1}
+  .card-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+  .card-h h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--cream)}
+  .card-h .tag{font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+  .card-h .tag.live{color:var(--good)}
+
+  /* calendar */
+  .cal-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--line-soft);align-items:baseline}
+  .cal-item:last-child{border-bottom:none}
+  .cal-time{width:74px;flex-shrink:0;font-size:12.5px;font-weight:600;color:var(--gold-soft);letter-spacing:.02em}
+  .cal-body .t{font-size:14px;font-weight:600;color:var(--ink)}
+  .cal-body .d{font-size:12.5px;color:var(--ink-3);margin-top:2px;line-height:1.45}
+  .cal-item.highlight .t{color:var(--gold)}
+
+  /* priorities */
+  .prio{counter-reset:p;list-style:none}
+  .prio li{
+    counter-increment:p;display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--line-soft);align-items:flex-start;
+  }
+  .prio li:last-child{border-bottom:none}
+  .prio li::before{
+    content:counter(p);
+    width:24px;height:24px;flex-shrink:0;border-radius:50%;
+    border:1px solid var(--gold);color:var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:600;margin-top:1px;
+  }
+  .prio .t{font-size:14px;font-weight:600}
+  .prio .d{font-size:12.5px;color:var(--ink-3);margin-top:2px;line-height:1.45}
+
+  /* grants */
+  .grant{
+    border:1px solid var(--line-soft);border-radius:12px;padding:16px 18px;margin-bottom:12px;
+    background:var(--navy-700);
+    display:grid;grid-template-columns:1fr auto;gap:6px 18px;
+  }
+  .grant:last-of-type{margin-bottom:0}
+  .grant .name{font-size:14.5px;font-weight:700;color:var(--cream)}
+  .grant .funder{font-size:12.5px;color:var(--ink-3);margin-top:2px}
+  .grant .why{font-size:12.5px;color:var(--ink-2);margin-top:8px;line-height:1.5;grid-column:1 / -1}
+  .grant .meta{grid-column:1 / -1;display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;align-items:center}
+  .grant .meta .m{font-size:12px;color:var(--ink-3)}
+  .grant .meta .m b{color:var(--ink-2);font-weight:600}
+  .match{text-align:right}
+  .match .num{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--gold)}
+  .match .lbl{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+  .meter{width:120px;height:5px;background:rgba(255,255,255,.1);border-radius:3px;margin-top:6px;overflow:hidden}
+  .meter i{display:block;height:100%;background:linear-gradient(90deg,#8FC9F0,#3E8FD0);border-radius:3px}
+  .btn{
+    display:inline-block;font-size:12px;font-weight:600;color:var(--navy-950);
+    background:var(--gold);border-radius:7px;padding:7px 14px;text-decoration:none;letter-spacing:.02em;
+  }
+  .btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold)}
+
+  /* requests table */
+  table{width:100%;border-collapse:collapse}
+  th{
+    text-align:left;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line);
+  }
+  td{padding:11px 10px;border-bottom:1px solid var(--line-soft);font-size:13px;color:var(--ink-2);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td .who{font-weight:600;color:var(--ink)}
+  td .amt{font-weight:700;color:var(--cream);font-variant-numeric:tabular-nums}
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;
+    padding:3px 10px;border-radius:20px;white-space:nowrap;
+  }
+  .chip.good{background:rgba(95,191,138,.14);color:var(--good)}
+  .chip.warn{background:rgba(228,180,91,.14);color:var(--warn)}
+  .chip.serious{background:rgba(229,138,107,.15);color:var(--serious)}
+  .chip.info{background:rgba(127,168,217,.14);color:var(--info)}
+  .ai-rec{
+    margin-top:14px;border-left:3px solid var(--gold);background:rgba(92,170,224,.08);
+    border-radius:0 10px 10px 0;padding:12px 16px;font-size:13px;color:var(--ink-2);line-height:1.55;
+  }
+  .ai-rec b{color:var(--gold-soft)}
+
+  /* briefing lists */
+  .brief{list-style:none}
+  .brief li{padding:11px 0;border-bottom:1px solid var(--line-soft)}
+  .brief li:last-child{border-bottom:none}
+  .brief .t{font-size:13.5px;font-weight:600;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+  .brief .d{font-size:12.5px;color:var(--ink-3);margin-top:3px;line-height:1.5}
+  .brief .d b{color:var(--ink-2);font-weight:600}
+
+  /* health */
+  .health{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .h-item{
+    border:1px solid var(--line-soft);border-radius:10px;padding:12px 14px;background:var(--navy-700);
+  }
+  .h-item .t{font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:7px}
+  .h-item .d{font-size:11.5px;color:var(--ink-3);margin-top:4px;line-height:1.45}
+  .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .dot.good{background:var(--good)}
+  .dot.warn{background:var(--warn)}
+
+  footer{
+    margin-top:34px;border-top:1px solid var(--line);padding-top:18px;
+    font-size:11.5px;color:var(--ink-3);line-height:1.6;text-align:center;
+  }
+  footer b{color:var(--gold-soft);font-weight:600}
+
+  @media(max-width:900px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .grid{grid-template-columns:1fr}
+    .health{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hdr">
+    <div class="brand">
+      <div class="crest">W</div>
+      <div>
+        <h1>Bishop J.&thinsp;A. Whitfield</h1>
+        <div class="sub">AI Chief of Staff &nbsp;·&nbsp; Executive Briefing</div>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <div class="date">Thursday, September 3, 2026 &nbsp;·&nbsp; Prepared 6:00 AM</div>
+      <div class="motto">"A resource, not The Source."</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="greeting">
+    <h2>Good morning, Bishop.</h2>
+    <p>Your day is prepared. Four meetings, five priorities, and three new grant opportunities matched to
+       LifeBridge Outreach overnight. One pastor request needs your decision today.</p>
+  </div>
+
+  <!-- Scripture & Prayer -->
+  <div class="scripture">
+    <div class="verse">
+      <div class="txt">"By wisdom a house is built, and through understanding it is established;
+        through knowledge its rooms are filled with rare and beautiful treasures."</div>
+      <div class="ref">Proverbs 24:3–4</div>
+    </div>
+    <div class="pray">
+      <h4>Today's Prayer Focus</h4>
+      <p>Wisdom in stewardship — five congregations are waiting on your guidance.
+         Continue lifting up Pastor Reeves' family, and the new bishops beginning training this week.</p>
+    </div>
+  </div>
+
+  <!-- Stat row -->
+  <div class="stats">
+    <div class="stat">
+      <div class="label">Pastors Under Care</div>
+      <div class="value">60</div>
+      <div class="note"><b>3</b> awaiting a response from you</div>
+    </div>
+    <div class="stat">
+      <div class="label">Pending Requests</div>
+      <div class="value">$485<span>K</span></div>
+      <div class="note"><b>5</b> funding &amp; guidance requests</div>
+    </div>
+    <div class="stat">
+      <div class="label">Grant Matches Today</div>
+      <div class="value">3</div>
+      <div class="note">up to <b>$250K</b> potential, 2 deadlines this month</div>
+    </div>
+    <div class="stat">
+      <div class="label">Days to Holy Convocation</div>
+      <div class="value">61</div>
+      <div class="note">delegate forms due <b>Sept 12</b></div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- Calendar -->
+    <div class="card">
+      <div class="card-h">
+        <h3>Today's Schedule</h3>
+        <span class="tag">Synced · Calendar</span>
+      </div>
+      <div class="cal-item">
+        <div class="cal-time">8:00 AM</div>
+        <div class="cal-body">
+          <div class="t">Morning prayer &amp; study</div>
+          <div class="d">Protected time — no meetings booked before 9:30</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-time">10:00 AM</div>
+        <div class="cal-body">
+          <div class="t">Call — Pastor D. Reeves</div>
+          <div class="d">Land purchase guidance · step-by-step acquisition brief attached &amp; ready</div>
+        </div>
+      </div>
+      <div class="cal-item highlight">
+        <div class="cal-time">12:00 PM</div>
+        <div class="cal-body">
+          <div class="t">New Bishops Training — "AI &amp; the Executive Leader"</div>
+          <div class="d">Virtual · 1 hour · presenters: Dr. Jarvis &amp; Sonja Sulcer</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-time">3:00 PM</div>
+        <div class="cal-body">
+          <div class="t">LifeBridge Outreach — board prep</div>
+          <div class="d">Agenda drafted for your approval · Q3 feeding-program numbers included</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-time">5:30 PM</div>
+        <div class="cal-body">
+          <div class="t">Hospital visit — Mother Jenkins</div>
+          <div class="d">Room 412, St. Luke's · her daughter's number is in your notes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Priorities -->
+    <div class="card">
+      <div class="card-h">
+        <h3>Five Things That Matter Today</h3>
+        <span class="tag">AI-Prioritized</span>
+      </div>
+      <ol class="prio">
+        <li><div>
+          <div class="t">Decide on Pastor Reeves' land request</div>
+          <div class="d">Decision brief below — recommendation is guidance first, funding later</div>
+        </div></li>
+        <li><div>
+          <div class="t">Review today's 3 grant matches</div>
+          <div class="d">Two deadlines land this month — LOI drafts are already prepared</div>
+        </div></li>
+        <li><div>
+          <div class="t">Sign the jurisdiction quarterly report</div>
+          <div class="d">Drafted from your notes Tuesday · 10-minute read, key items flagged</div>
+        </div></li>
+        <li><div>
+          <div class="t">Return Supt. Hayes' call — pastoral appointment</div>
+          <div class="d">Waiting 2 days · talking points summarized in your inbox briefing</div>
+        </div></li>
+        <li><div>
+          <div class="t">Approve LifeBridge board agenda</div>
+          <div class="d">One open item: adult day-center feasibility — grant matches found</div>
+        </div></li>
+      </ol>
+    </div>
+
+    <!-- Grants -->
+    <div class="card full">
+      <div class="card-h">
+        <h3>Today's Suggested Grants — LifeBridge Outreach</h3>
+        <span class="tag live">● Live · Grants.gov + funder databases · refreshed 6:00 AM</span>
+      </div>
+
+      <div class="grant">
+        <div>
+          <div class="name">Zero Hunger | Zero Waste Foundation Grant</div>
+          <div class="funder">The Kroger Co. Foundation · Nationwide · Food access &amp; hunger relief</div>
+        </div>
+        <div class="match">
+          <div class="num">94</div>
+          <div class="lbl">Match Score</div>
+          <div class="meter"><i style="width:94%"></i></div>
+        </div>
+        <div class="why"><b>Why it matches:</b> Directly funds community feeding programs like the LifeBridge pantry.
+          Funder has a history of awards to faith-affiliated nonprofits at your budget size.</div>
+        <div class="meta">
+          <span class="m">Deadline <b>Sept 18, 2026</b></span>
+          <span class="m">Est. effort <b>LOI, ~2 pages</b></span>
+          <a class="btn" href="#">Draft the LOI</a>
+          <a class="btn ghost" href="#">View opportunity</a>
+        </div>
+      </div>
+
+      <div class="grant">
+        <div>
+          <div class="name">Journey For Good Grant</div>
+          <div class="funder">Journey for Good Foundation · North America · Food security &amp; housing</div>
+        </div>
+        <div class="match">
+          <div class="num">88</div>
+          <div class="lbl">Match Score</div>
+          <div class="meter"><i style="width:88%"></i></div>
+        </div>
+        <div class="why"><b>Why it matches:</b> Rare dual-focus funder — covers both hunger <i>and</i> housing,
+          which mirrors LifeBridge's mission exactly. Strong fit for general program support.</div>
+        <div class="meta">
+          <span class="m">Deadline <b>Sept 15, 2026</b></span>
+          <span class="m">Est. effort <b>Application, ~4 pages</b></span>
+          <a class="btn" href="#">Draft the LOI</a>
+          <a class="btn ghost" href="#">View opportunity</a>
+        </div>
+      </div>
+
+      <div class="grant">
+        <div>
+          <div class="name">Ameriprise Community Grants</div>
+          <div class="funder">Ameriprise Financial · Nationwide · Hunger relief &amp; housing stability</div>
+        </div>
+        <div class="match">
+          <div class="num">81</div>
+          <div class="lbl">Match Score</div>
+          <div class="meter"><i style="width:81%"></i></div>
+        </div>
+        <div class="why"><b>Why it matches:</b> Funds operating costs — the hardest dollars to raise.
+          Longer runway on the deadline; a strong candidate for the staff-salary need.</div>
+        <div class="meta">
+          <span class="m">Deadline <b>Jan 15, 2027</b></span>
+          <span class="m">Est. effort <b>Application, ~5 pages</b></span>
+          <a class="btn" href="#">Draft the LOI</a>
+          <a class="btn ghost" href="#">View opportunity</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pastor Requests -->
+    <div class="card full">
+      <div class="card-h">
+        <h3>Pastor Requests — $485,000 Pending</h3>
+        <span class="tag">5 open · 2 new this week</span>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Pastor</th><th>Request</th><th>Amount</th><th>Status</th><th>AI Assist</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="who">Pastor D. Reeves</span><br>Mt. Olive</td>
+            <td>Land purchase — 4.2 acres, guidance requested</td>
+            <td><span class="amt">$150,000</span></td>
+            <td><span class="chip warn">▲ Decision today</span></td>
+            <td>Step-by-step acquisition checklist drafted for your 10 AM call</td>
+          </tr>
+          <tr>
+            <td><span class="who">Pastor M. Ellis</span><br>Greater Faith</td>
+            <td>Sanctuary roof renovation</td>
+            <td><span class="amt">$120,000</span></td>
+            <td><span class="chip info">● New</span></td>
+            <td>2 matching facility grants found — routed for review</td>
+          </tr>
+          <tr>
+            <td><span class="who">Pastor T. Okafor</span><br>New Hope</td>
+            <td>Youth center buildout</td>
+            <td><span class="amt">$95,000</span></td>
+            <td><span class="chip good">✓ Under review</span></td>
+            <td>Eligible for USDA Community Facilities program — summary ready</td>
+          </tr>
+          <tr>
+            <td><span class="who">Pastor S. Grant</span><br>Bethel Temple</td>
+            <td>HVAC replacement</td>
+            <td><span class="amt">$60,000</span></td>
+            <td><span class="chip serious">✕ Docs needed</span></td>
+            <td>Reminder sent Mon — two estimates still outstanding</td>
+          </tr>
+          <tr>
+            <td><span class="who">Pastor L. Marsh</span><br>Rock of Ages</td>
+            <td>Van ministry — transportation</td>
+            <td><span class="amt">$60,000</span></td>
+            <td><span class="chip info">● New</span></td>
+            <td>3 vehicle-donation programs identified as alternatives</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ai-rec">
+        <b>Chief of Staff recommendation:</b> No direct disbursements needed this quarter.
+        Route Ellis and Okafor to their matched grant programs, hold Grant pending documentation,
+        and open Reeves with guidance rather than funding. Estimated jurisdiction outlay avoided: <b>$275,000</b>.
+      </div>
+    </div>
+
+    <!-- Sector briefing -->
+    <div class="card">
+      <div class="card-h">
+        <h3>What's Happening in Your World</h3>
+        <span class="tag">Ministry &amp; Nonprofit Briefing</span>
+      </div>
+      <ul class="brief">
+        <li>
+          <div class="t">Major faith funder signals new congregation-vitality grant round</div>
+          <div class="d"><b>Why it matters:</b> jurisdictions can apply on behalf of member churches — worth a pre-read before the board meeting.</div>
+        </li>
+        <li>
+          <div class="t">Federal food-assistance changes expected to raise demand at local pantries</div>
+          <div class="d"><b>Why it matters:</b> LifeBridge should plan for a heavier Q4 — strengthens the case in both pending grant applications.</div>
+        </li>
+        <li>
+          <div class="t">New survey: a majority of congregations now use AI for administrative work</div>
+          <div class="d"><b>Why it matters:</b> your pastors will be asking for guidance — today's 12 PM training is timely.</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Inbox briefing -->
+    <div class="card">
+      <div class="card-h">
+        <h3>Inbox — Needs Your Attention</h3>
+        <span class="tag">3 of 47 emails require you</span>
+      </div>
+      <ul class="brief">
+        <li>
+          <div class="t">Supt. Hayes <span class="chip warn">▲ Waiting 2 days</span></div>
+          <div class="d">Pastoral appointment recommendation for the Eastside church — <b>reply drafted</b>, awaiting your review.</div>
+        </li>
+        <li>
+          <div class="t">National Headquarters <span class="chip info">● Deadline</span></div>
+          <div class="d">Holy Convocation delegate forms due <b>Sept 12</b> — pre-filled from last year's roster, 4 changes flagged.</div>
+        </li>
+        <li>
+          <div class="t">Community Foundation program officer <span class="chip good">✓ Good news</span></div>
+          <div class="d">Follow-up question on last month's LOI — a <b>response is drafted</b>; she asked about the feeding program's reach.</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Health -->
+    <div class="card full">
+      <div class="card-h">
+        <h3>Shepherd's Health — Caring for the Caregiver</h3>
+        <span class="tag">Private · visible only to you</span>
+      </div>
+      <div class="health">
+        <div class="h-item">
+          <div class="t"><span class="dot warn"></span>Morning walk — not yet logged</div>
+          <div class="d">A 30-minute window is open between the board prep and hospital visit (4:15–4:45).</div>
+        </div>
+        <div class="h-item">
+          <div class="t"><span class="dot warn"></span>Blood pressure check due today</div>
+          <div class="d">Last logged Tuesday. Dr. Amos asked for three readings a week.</div>
+        </div>
+        <div class="h-item">
+          <div class="t"><span class="dot good"></span>Sabbath guard is holding</div>
+          <div class="d">Friday afternoon remains blocked — two meeting requests were politely declined for you.</div>
+        </div>
+        <div class="h-item">
+          <div class="t"><span class="dot good"></span>Rest check</div>
+          <div class="d">You've kept 6 of 7 evenings free this week. Anniversary dinner reminder: the 14th.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <b>Demonstration dashboard.</b> Bishop J.A. Whitfield, LifeBridge Outreach, and all pastors shown are fictional;
+    calendar, inbox, and health entries are sample data. The three grant opportunities are <b>real and open</b> as of August 2026.<br>
+    AI &amp; the Executive Leader · Dr. Jarvis &amp; Sonja Sulcer · <i>"A resource, not The Source."</i>
+  </footer>
+
+</div>
+</body>
+</html>
